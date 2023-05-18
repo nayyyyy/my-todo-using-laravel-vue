@@ -1,3 +1,5 @@
 <template>
-    How To Install Vue 3 In Laravel 9 With Vite Step By Step - Techsolutionstuff
+    <div class="container mx-28">
+        <h1 class="font-medium text-neutral-800">Welcome to Laravel + Vue</h1>
+    </div>
 </template>
