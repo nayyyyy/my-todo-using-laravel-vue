@@ -13,7 +13,7 @@ class TodoController extends Controller
 {
     public function index(): JsonResponse
     {
-        return $this->sendSuccess(Todo::all(), __('todo.index'));
+        return $this->sendSuccess(Todo::all()->groupBy('priority'), __('todo.index'));
     }
 
     public function store(TodoRequest $request): JsonResponse

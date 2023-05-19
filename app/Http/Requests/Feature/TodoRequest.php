@@ -1,9 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Requests\Feature;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property mixed $title
+ * @property mixed $desc
+ */
 class TodoRequest extends FormRequest
 {
     /**
@@ -11,18 +17,30 @@ class TodoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required'],
+            'desc' => ['required'],
+            'priority' => ['required', 'in:1,2,3', 'numeric'],
+            'start' => ['required'],
+            'end' => ['required']
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'title' => ucwords($this->title),
+            'desc' => ucfirst($this->desc)
+        ]);
     }
 }
